@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddhant Jha</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "JetBrains Mono", monospace;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #1c1c1c;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        nav a {
+            font-family: "JetBrains Mono", monospace;
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+
+        .box img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #b0b0b0;
+        }
+        
+        .equation {
+            color: #b0b0b0;
+            text-align: center;
+            margin: 1rem 0;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="../index.html#home">Home</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../okresume.pdf" target="_blank">CV</a>
+    </nav>
+    <div class="content">
+        <h1>The Black Box Problem in Machine Learning</h1>
+        <h2>Siddhant Jha</h2>
+        <div class="box">
+            <p>In the realm of machine learning, the "black box problem" refers to the opacity of complex models, such as deep neural networks. These models, while powerful, often operate in ways that are not easily interpretable by humans. This lack of transparency can lead to significant issues in trust, accountability, and bias detection. Despite their ability to achieve high performance on various tasks, understanding how these models make decisions remains a challenge.</p>
+            <p>For instance, consider a neural network trained to recognize images of cats and dogs. While it might achieve near-perfect accuracy, the reasoning behind its predictions is hidden within layers of mathematical transformations, making it difficult to discern what specific features the model is focusing on. This is particularly problematic in high-stakes domains such as healthcare, finance, and law, where the consequences of erroneous predictions can be severe.</p>
+            <p>Addressing the black box problem requires techniques that enhance interpretability without significantly compromising model performance. These include methods such as LIME (Local Interpretable Model-agnostic Explanations) and SHAP (SHapley Additive exPlanations), which aim to provide insights into the model's decision-making process.</p>
+
+            <h2>Linear Spaces in Model Training</h2>
+            <p>Understanding linear spaces is fundamental to many machine learning algorithms, particularly those based on linear models. In the context of model training, a linear space (or vector space) is a mathematical structure formed by a collection of vectors. These vectors can be scaled and added together to form new vectors within the same space.</p>
+            <p>Consider a simple linear regression model:</p>
+            <p class="equation">\( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n + \epsilon \)</p>
+            <p>Here, \( y \) represents the dependent variable, \( x_1, x_2, \ldots, x_n \) are the independent variables, \( \beta_0, \beta_1, \ldots, \beta_n \) are the coefficients, and \( \epsilon \) is the error term. The goal is to find the best-fitting hyperplane that minimizes the error term, often achieved through optimization techniques like gradient descent.</p>
+            <p>The concept of linear spaces extends to more complex models as well. For example, in support vector machines (SVMs), the goal is to find the optimal hyperplane that separates different classes in a high-dimensional space. This can be mathematically formulated as:</p>
+            <p class="equation">\( \text{maximize} \quad \frac{2}{||w||} \quad \text{subject to} \quad y_i(w \cdot x_i + b) \geq 1 \)</p>
+            <p>where \( w \) is the normal vector to the hyperplane, \( b \) is the bias term, and \( y_i \) are the class labels.</p>
+            <p>In another example, principal component analysis (PCA) seeks to reduce the dimensionality of data by transforming it into a new set of variables (principal components) that are orthogonal and capture the maximum variance. The mathematical formulation involves eigenvalue decomposition of the covariance matrix:</p>
+            <p class="equation">\( \Sigma v_i = \lambda_i v_i \)</p>
+            <p>where \( \Sigma \) is the covariance matrix, \( \lambda_i \) are the eigenvalues, and \( v_i \) are the eigenvectors (principal components).</p>
+
+            <h2>Non-Convex Optimization in Machine Learning</h2>
+            <p>Non-convex optimization plays a critical role in training machine learning models, particularly deep learning models. Unlike convex optimization problems, which have a single global minimum, non-convex problems have multiple local minima. This makes finding the global minimum more challenging.</p>
+            <p>Consider the loss function \( L(\theta) \) used to train a neural network. This function maps the model parameters \( \theta \) to a scalar value representing the prediction error. The goal is to find the parameter values that minimize this loss function:</p>
+            <p class="equation">\( \min_{\theta} L(\theta) \)</p>
+            <p>However, due to the complex nature of neural networks, the loss landscape is highly non-convex, characterized by numerous valleys and peaks. Gradient-based optimization algorithms, such as stochastic gradient descent (SGD), are employed to navigate this landscape. Despite their effectiveness, these algorithms can get trapped in local minima or saddle points, making optimization difficult.</p>
+            <p>To mitigate these challenges, various techniques are used, including learning rate schedules, momentum, and advanced optimizers like Adam. The update rule for Adam, for example, is given by:</p>
+            <p class="equation">\( m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t \)</p>
+            <p class="equation">\( v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2 \)</p>
+            <p class="equation">\( \hat{m}_t = \frac{m_t}{1 - \beta_1^t} \)</p>
+            <p class="equation">\( \hat{v}_t = \frac{v_t}{1 - \beta_2^t} \)</p>
+            <p class="equation">\( \theta_t = \theta_{t-1} - \alpha \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} \)</p>
+            <p>Here, \( g_t \) is the gradient at time step \( t \), \( m_t \) and \( v_t \) are estimates of the first and second moments, \( \alpha \) is the learning rate, and \( \epsilon \) is a small constant to prevent division by zero.</p>
+            <p>Additionally, the concept of convex relaxation can be applied, where a non-convex problem is approximated by a convex one that is easier to solve. This approach is used in various optimization problems to simplify the solution process.</p>
+            <p>Understanding the interplay between non-convex optimization and the black box problem is crucial. The non-convex nature of deep learning models contributes to their opacity, as the intricate loss landscapes obscure the relationship between input features and model predictions. Enhancing interpretability while effectively navigating these landscapes remains an active area of research.</p>
+            <p>Imagine one has designed a sophisticated algorithm that aids judges in determining the optimal sentence for repeat offenders. This algorithm is fed with data pertaining to the offender's personal life, the circumstances of their initial and subsequent offenses, and a vast database on other repeat offenders: details of their actions, sentences, behavior in prison, and life after release. The database is so extensive that no human could fully analyze it in their lifetime. However, the algorithm, run on a fast computer, needs only seconds to come up with a verdict. How should we perceive such verdicts? Do we truly understand what happens when the algorithm performs its 'magic'?</p>
+            <p>The answer is both yes and no. Yes, because we have designed the algorithm to look for patterns in the vast database. The pattern might be, for example, that repeat offenders who are highly intelligent and lack permanent employment are more likely to reoffend, thus warranting a longer sentence and extended isolation. We know that the algorithm searches for such patterns. However, we do not know the specific pattern on which the algorithm based its decision, nor the exact steps that led to its conclusion.</p>
+            <p>Is this problematic? On the surface, it seems like a questionable method for making critical decisions. In public life, and especially in law, we strive for transparency, and there appears to be none in the machine learning 'magic'. But let's compare our algorithm with a real judge making a decision in a similar case. Do we truly know what happens in the judge's mind? Can we be certain of the pattern they base their decision on? Decades of research in experimental psychology and neuroscience suggest a clear answer: no (Bargh and Morsella 2008; Guthrie et al. 2001; Brożek 2020). Most, if not all, human decisions are made unconsciously. There are no clearly identifiable 'steps' that we are aware of and can control. Usually, the decision simply appears in our minds, 'as if from nowhere' (Damasio 2006).</p>
+            <p>In experimental psychology and neuroscience, we are trying to understand the mechanism of unconscious decision-making. Thus, in relation to the functioning of the human mind, we seek the kind of knowledge we already possess in the case of any AI algorithm. For example, it is very likely that the human mind is a powerful pattern-finder. What we are interested in learning is how such patterns are found, what the pattern-detection mechanism is, and not necessarily what patterns are actually found or why the mind bases its decision on one pattern rather than another.</p>
+            <p>From this perspective, the human mind is much more of a black box than the most sophisticated machine learning algorithm. For algorithms, we at least understand how they work, even if we cannot explain why they arrive at a particular decision. In the case of the human mind, we have only a tentative outline of how it works (Bonezzi et al. 2022).</p>
+            <p>Our inability to understand exactly what an AI algorithm does is sometimes referred to as the opacity problem (Burrell 2016; Zednik 2021). However, when compared with our knowledge and understanding of how the human mind works, algorithms are not really that opaque. The opacity problem does not seem to be a genuine issue. At the same time, we do not question human decisions in the way we doubt decisions made by AI. We do not treat minds as black boxes, even though they seem to be black boxes par excellence. Why is this so?</p>
+            <p>One possible reason is trust and familiarity. Humans have been making decisions for millennia, and societal norms have developed around accepting and questioning these decisions. Judges, for example, undergo extensive training and are subject to checks and balances that lend their decisions credibility. Even if we do not fully understand the cognitive processes behind a judge's decision, we trust the human element. On the other hand, AI is relatively new, and its rapid advancement has outpaced our ability to fully grasp its inner workings. This unfamiliarity breeds skepticism and caution.</p>
+            <p>Furthermore, the consequences of AI decisions can be far-reaching and severe, especially in high-stakes areas like criminal justice. The thought of an opaque algorithm determining someone's fate can be unsettling. There is a fear that biases in the data or flaws in the algorithm could lead to unjust outcomes. This is compounded by the fact that AI lacks the empathy and moral reasoning that humans bring to decision-making. A judge can consider the nuances of a case and exercise compassion, whereas an algorithm operates strictly within the parameters it was given.</p>
+            <p>Addressing these concerns involves improving the transparency and interpretability of AI systems. Techniques such as LIME (Local Interpretable Model-agnostic Explanations) and SHAP (SHapley Additive exPlanations) aim to provide insights into how algorithms make decisions. These methods can help demystify the 'black box' and build trust in AI systems. Additionally, incorporating ethical considerations and biases detection into the design and deployment of AI can mitigate some of the risks associated with its use.</p>
+            <p>In conclusion, while both human minds and AI algorithms can be considered black boxes, the latter is often perceived as more problematic due to its novelty and the high stakes involved in its decisions. Enhancing the interpretability and transparency of AI, alongside ethical safeguards, can help bridge this gap. As we continue to integrate AI into various aspects of life, it is crucial to balance its powerful capabilities with responsible and transparent practices.</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boxes = document.querySelectorAll('.box');
+
+            boxes.forEach(box => {
+                box.addEventListener('mouseover', () => {
+                    box.style.transform = 'scale(1.05)';
+                    box.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.2)';
+                });
+
+                box.addEventListener('mouseout', () => {
+                    box.style.transform = 'scale(1)';
+                    box.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

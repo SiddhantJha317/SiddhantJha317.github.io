@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddhant Jha</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "JetBrains Mono", monospace;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #1c1c1c;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        nav a {
+            font-family: "JetBrains Mono", monospace;
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+
+        .box img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            color: #ffffff;
+        }
+
+        p {
+            color: #b0b0b0;
+        }
+        
+        .equation {
+            color: #b0b0b0;
+            text-align: center;
+            margin: 1rem 0;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="../index.html#home">Home</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../okresume.pdf" target="_blank">CV</a>
+    </nav>
+    <div class="content">
+        <h1>On Kolmogorov Complexity</h1>
+        <h2>Siddhant Jha</h2>
+        <div class="box">
+            <p>A recent paper broke new ground as it posited a completely novel model architecture for neural networks which fundamentally differs from multi-layer perceptrons (MLPs). MLPs tune their weights with the help of heuristic non-convex optimization algorithms like SGD, while processing large batches of relevant data. The decision logic is then determined by passing the large matrix of weights through an activation function:</p>
+            <p class="equation">\( f(x) = \sigma(Wx + b) \)</p>
+            <p>Where \( W \) is the weight matrix, \( x \) is the input, \( b \) is the bias, and \( \sigma \) is the activation function.</p>
+            <p>When we use these feed-forward networks with interleaving masking attention layers, they turn into generative or embedding algorithms which can map very large linguistic feature spaces into their relevant hyperplane regions through the folding of linear spaces. These are called transformers; GPT-4 is one good example.</p>
+            <p>The issue with these models is that we don't yet have a proper systemic explanation of how we can mechanistically trace back the internal logic of how an output matrix is generated. Basically, we don't understand how the internal state of each logic gate-point is operating, making the model hard to interpret, hence leading to the black box problem. The causes for this are manifold, one of the important ones being that linear spaces become too numerous as the feature map scales to larger and larger token sizes.</p>
+            
+            <h2>Kolmogorov-Arnold Networks</h2>
+            <p>Kolmogorov-Arnold networks work to solve this problem by breaking the basic mold given to us by the Universal Approximation Theorem, which states that no matter how complex a feature space may be, there exists a sequence of functions \( f_1, f_2, \ldots, f_n \) which can be dense between two Euclidean spaces. Essentially, there is always a possible function which approximates \( f(x) = Y \). KANs, on the other hand, employ the logic of the Kolmogorov-Arnold Representation theorem.</p>
+            <p>The theorem states that if \( f \) is a continuous multivariate function, then under constraints of a bounded domain space it can theoretically be represented by the superposition of 2n+1 univariate functions \( W(x) \):</p>
+            <p class="equation">\( f(x_1, \ldots, x_n) = \sum_{j=1}^{2n+1} \psi_j\left(\sum_{i=1}^n \phi_{ij}(x_i)\right) \)</p>
+            <p>Although not all sums of two-layer width (2n+1) networks may be smoothly represented through univariate decompositions, we can achieve smoothness via the use of arbitrary heterogeneous widths and depths.</p>
+
+            <h2>Lowest Common Programs</h2>
+            <p>The fundamental question of Kolmogorov complexity is whether we can find the lowest abstraction program to represent an object composed of contiguous information. In machine learning terms, the Kolmogorov complexity of a feature space may represent the lowest number of sequential functions which most probably approximate the linear hyperplanes to the given token map.</p>
+            <p>You can think of three strings: "yzyzyzyzyzyz", "mynameissiddhant", "1248163264". The first string can be described through a linguistic logical expression like "write yz 6 times", while the second expression can be represented as "write mynameissiddhant". The first representation is 13 characters while the second one is around 21 characters. The third may be even more complex.</p>
+            <p>On a more general level, the complexity of a string object may be described as the lowest number of characters for a representative expression under the bounds of a fixed universal language. The fixture of the universal language remains important because in a formal use English expression, the third string may be described as "write a sequence of doubling numbers until the 8th element". However, in a customized mathematical universal language, it may be described as "write a geometric series \( r=2 \) until \( n=(1,8) \)", the second expression being shorter.</p>
+            <p>In programming languages, the Kolmogorov complexity can be compared across different languages, by assigning a Universal Turing Language \( U(s) \) which can be a theoretical minimum of the given string complexity, and whichever language approximates most closely has the lowest Kolmogorov Complexity.</p>
+
+            <h2>Types of Kolmogorov Complexity</h2>
+            <p>Another aspect to consider is the Kolmogorov complexity in its plain form, denoted as \( C(x) \). This represents the minimal description length of any program that can produce the string \( x \) when executed. It's worth noting that equations in this context are typically understood up to an additive constant. So, when we say \( f(x) = g(x) \), it actually implies \( f(x) = g(x) + O(1) \), meaning there exists some constant \( c \) such that for all \( x \), the absolute difference \( |f(x) - g(x)| \) is at most \( c \).</p>
+            <p>A computable function \( U: 2* \to 2* \) is considered universal if, for any computable function \( f: 2* \to 2 \), we can encode \( f \) in a "program" \( s_e \) such that for all \( x \) in \( 2* \), \( U(s_ex) = f(x) \). Think of \( U \) as a kind of universal interpreter that first reads a description of a program, then processes input data accordingly.</p>
+            <p>However, one challenge with plain complexity is that \( C(xy) \) is not necessarily less than the sum of \( C(x) \) and \( C(y) \). This is because there’s no straightforward way to determine where one string ends and another begins in their concatenation, without additional information. We can specify the length of one of the strings, but this introduces an overhead of \( O(\min(\ln |x|, \ln |y|)) \) extra symbols. This discrepancy highlights that for any constant \( c > 0 \), there exist strings \( x \) and \( y \) such that \( C(xy) \) is at least \( C(x) + C(y) + c \).</p>
+            <p>This brings us to the concept of conditional complexity, denoted \( C(x|y) \), which represents the complexity of \( x \) given \( y \). The conditional complexity is always less than or equal to the plain complexity because having additional information about \( y \) should not increase the difficulty of describing \( x \). In fact, the complexity of a pair \( (x, y) \) is related to their individual complexities by the equation:</p>
+            <p class="equation">\( C(xy) \leq C(x) + C(y|x) + O(1) \)</p>
+        </div>
+    </div>
+</body>
+</html>
