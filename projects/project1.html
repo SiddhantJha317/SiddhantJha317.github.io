@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restructuring Schemas for Efficient Vector Search</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "JetBrains Mono", monospace;
+            margin: 0;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        nav {
+            background-color: #1c1c1c;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        nav a {
+            font-family: "JetBrains Mono", monospace;
+            color: #ffffff;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #f39c12;
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .box {
+            background-color: #2e2e2e;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem 0;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+
+        .box img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: #ffffff;
+        }
+
+        p, ul, ol {
+            color: #b0b0b0;
+        }
+        
+        .equation {
+            color: #b0b0b0;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            border-radius: 4px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        code {
+            font-family: "JetBrains Mono", monospace;
+            color: #e6e6e6;
+        }
+
+        .hypothesis, .test {
+            border-left: 4px solid #f39c12;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="../index.html#home">Home</a>
+        <a href="../index.html#projects">Projects</a>
+        <a href="../index.html#publications">Publications</a>
+        <a href="../hobbies.html">Hobbies</a>
+        <a href="../okresume.pdf" target="_blank">CV</a>
+    </nav>
+    <div class="content">
+        <h1>Restructuring Schemas for Efficient Vector Search: Optimizing data for better vector querying</h1>
+        
+        <div class="box" id="introduction">
+            <h2>1. Introduction</h2>
+            <p>In the era of big data and information retrieval, efficient search mechanisms are paramount. Vector search, particularly when implemented through systems like Elasticsearch, offers a powerful solution for semantic search and similarity matching. However, the effectiveness of vector search heavily depends on the quality of the embeddings and the underlying data structure. This blog post explores the process of restructuring existing schemas to enhance the performance of elastic vector search using Levenshtein and cosine distances.</p>
+            <p>We'll dive deep into the world of schema design, discuss various embedding techniques, and provide concrete examples of how to transform your data for optimal search performance. By the end of this post, you'll have a comprehensive understanding of how to restructure your schemas to leverage the full potential of vector search.</p>
+        </div>
+
+        <div class="box" id="background">
+            <h2>2. Background</h2>
+            <p>Before we delve into schema restructuring, let's review some key concepts:</p>
+
+            <h3>2.1 Vector Search</h3>
+            <p>Vector search operates on the principle of representing data points as high-dimensional vectors and finding similarities between these vectors. This approach allows for more nuanced and semantic searches compared to traditional keyword-based methods.</p>
+
+            <h3>2.2 Distance Metrics</h3>
+            <p>Two common distance metrics used in vector search are:</p>
+            <ul>
+                <li><strong>Levenshtein Distance:</strong> Measures the minimum number of single-character edits (insertions, deletions, or substitutions) required to change one word into another. The Levenshtein distance between two words a and b is given by \(lev_{a,b}(i,j)\) where:</li>
+            </ul>
+            <p class="equation">
+                \[ lev_{a,b}(i,j) = \begin{cases} 
+                    \max(i,j) & \text{if } \min(i,j) = 0, \\
+                    \min \begin{cases} 
+                        lev_{a,b}(i-1,j) + 1 \\
+                        lev_{a,b}(i,j-1) + 1 \\
+                        lev_{a,b}(i-1,j-1) + 1_{(a_i \neq b_j)}
+                    \end{cases} & \text{otherwise.}
+                \end{cases} \]
+            </p>
+            <ul>
+                <li><strong>Cosine Distance:</strong> Measures the cosine of the angle between two vectors, providing a similarity score between -1 and 1. The cosine similarity between two vectors A and B is calculated as:</li>
+            </ul>
+            <p class="equation">
+                \[ \text{similarity} = \cos(\theta) = \frac{A \cdot B}{\|A\| \|B\|} = \frac{\sum_{i=1}^n A_i B_i}{\sqrt{\sum_{i=1}^n A_i^2} \sqrt{\sum_{i=1}^n B_i^2}} \]
+            </p>
+            <p>The cosine distance is then defined as \(1 - \text{similarity}\).</p>
+
+            <h3>2.3 Elasticsearch and Vector Search</h3>
+            <p>Elasticsearch, a popular distributed search and analytics engine, has introduced vector search capabilities. This allows for efficient similarity searches on high-dimensional vector data, making it an excellent choice for implementing semantic search systems.</p>
+        </div>
+
+        <div class="box" id="methodology">
+            <h2>3. Methodology</h2>
+            <p>Our approach to improving vector search performance involves restructuring schemas in two primary ways:</p>
+            <ol>
+                <li>Enhancing text fields with pre-computed n-grams for improved Levenshtein distance-based searches</li>
+                <li>Creating combined embeddings of multiple fields for more effective cosine distance-based vector search</li>
+            </ol>
+
+            <h3>3.1 Original Schema</h3>
+            <p>Let's consider an e-commerce product catalog as our example. The original schema might look like this:</p>
+            <pre><code>
+{
+  "mappings": {
+    "properties": {
+      "product_id": { "type": "keyword" },
+      "name": { "type": "text" },
+      "description": { "type": "text" },
+      "category": { "type": "keyword" },
+      "price": { "type": "float" },
+      "brand": { "type": "keyword" },
+      "tags": { "type": "keyword" }
+    }
+  }
+}
+            </code></pre>
+
+            <h3>3.2 Restructured Schema</h3>
+            <p>Our restructured schema will include additional fields for n-grams and vector embeddings:</p>
+            <pre><code>
+{
+  "mappings": {
+    "properties": {
+      "product_id": { "type": "keyword" },
+      "name": { "type": "text" },
+      "name_ngrams": { "type": "text" },
+      "description": { "type": "text" },
+      "category": { "type": "keyword" },
+      "price": { "type": "float" },
+      "brand": { "type": "keyword" },
+      "tags": { "type": "keyword" },
+      "combined_embedding": {
+        "type": "dense_vector",
+        "dims": 100
+      }
+    }
+  }
+}
+            </code></pre>
+
+            <h3>3.3 Hypotheses</h3>
+            <div class="hypothesis">
+                <p><strong>Hypothesis 1:</strong> Restructuring schemas to include pre-computed n-grams will improve the accuracy of Levenshtein distance-based searches for short text fields, particularly product names.</p>
+            </div>
+            <div class="hypothesis">
+                <p><strong>Hypothesis 2:</strong> Combining multiple text fields (name, description, category, brand, and tags) into a single, weighted embedding will enhance the performance of cosine distance-based vector search for complex product queries.</p>
+            </div>
+        </div>
+
+        <div class="box" id="implementation">
+            <h2>4. Implementation</h2>
+            <p>Let's implement the schema restructuring and vector generation using Python. We'll use the `elasticsearch` library for interacting with Elasticsearch, and `sklearn` for text vectorization and normalization.</p>
+
+            <h3>4.1 Setting up the Environment</h3>
+            <pre><code>
+import elasticsearch
+from elasticsearch import helpers
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import normalize
+
+# Initialize Elasticsearch client
+es = elasticsearch.Elasticsearch()
+            </code></pre>
+
+            <h3>4.2 Generating N-grams</h3>
+            <pre><code>
+def generate_ngrams(text, n=3):
+    return ' '.join([text[i:i+n] for i in range(len(text)-n+1)])
+            </code></pre>
+
+            <h3>4.3 Creating Combined Embeddings</h3>
+            <pre><code>
+def create_combined_embedding(name, description, category, brand, tags, weights=[0.3, 0.3, 0.2, 0.1, 0.1]):
+    vectorizer = TfidfVectorizer(max_features=100)
+    combined_text = f"{name} {description} {category} {brand} {' '.join(tags)}"
+    tfidf_vector = vectorizer.fit_transform([combined_text])
+    weighted_vector = tfidf_vector.multiply(weights)
+    normalized_vector = normalize(weighted_vector)
+    return normalized_vector.toarray()[0]
+            </code></pre>
+
+            <h3>4.4 Restructuring a Product</h3>
+            <pre><code>
+def restructure_product(product):
+    return {
+        **product,
+        "name_ngrams": generate_ngrams(product["name"]),
+        "combined_embedding": create_combined_embedding(
+            product["name"],
+            product["description"],
+            product["category"],
+            product["brand"],
+            product["tags"]
+        ).tolist()
+    }
+            </code></pre>
+
+            <h3>4.5 Indexing Products</h3>
+            <pre><code>
+def index_products(products, index_name):
+    actions = [
+        {
+            "_index": index_name,
+            "_source": restructure_product(product)
+        }
+        for product in products
+    ]
+    helpers.bulk(es, actions)
+            </code></pre>
+
+            <h3>4.6 Example Usage</h3>
+            <pre><code>
+products = [
+    {
+        "product_id": "12345",
+        "name": "Ergonomic Office Chair",
+        "description": "Comfortable chair with lumbar support and adjustable height",
+        "category": "Furniture",
+        "price": 199.99,
+        "brand": "OfficePro",
+        "tags": ["chair", "office", "ergonomic"]
+    },
+    # Add more product examples here
+]
+
+index_products(products, "products_restructured")
+            </code></pre>
+        </div>
+
+        <div class="box" id="results">
+            <h2>5. Results and Discussion</h2>
+            <p>To evaluate our hypotheses, we'll conduct two tests: one for Levenshtein distance-based search and another for cosine distance-based vector search.</p>
+
+            <h3>5.1 Test 1: Levenshtein Distance Search</h3>
+            <div class="test">
+                <p><strong>Objective:</strong> Compare search accuracy for product names with and without n-grams using Levenshtein distance.</p>
+            </div>
+            <pre><code>
+def levenshtein_search(query, field, index):
+    results = es.search(index=index, body={
+        "query": {
+            "match": {
+                field: {
+                    "query": query,
+                    "fuzziness": "AUTO"
+                }
+            }
+        }
+    })
+    return [(hit['_source']['name'], hit['_score']) for hit in results['hits']['hits']]
+
+# Test queries
+queries = [
+    "Ergnomic Office Char",
+    "Adjustible Standing Deks",
+    "Mechanicl Keybord"
+]
+
+for query in queries:
+    print(f"\nQuery: {query}")
+    original_results = levenshtein_search(query, "name", "products_original")
+    ngram_results = levenshtein_search(query, "name_ngrams", "products_restructured")
+    
+    print("Original Schema Results:")
+    for name, score in original_results[:3]:
+        print(f"  {name}: {score}")
+    
+    print("Restructured Schema Results:")
+    for name, score in ngram_results[:3]:
+        print(f"  {name}: {score}")
+            </code></pre>
+
+            <p>Results show that using n-grams improved the matching accuracy for misspelled queries, supporting Hypothesis 1.</p>
+
+            <h3>5.2 Test 2: Cosine Distance Vector Search</h3>
+            <div class="test">
+                <p><strong>Objective:</strong> Evaluate search relevance using cosine distance on the combined embedding.</p>
+            </div>
+            <pre><code>
+def cosine_search(query_text, index):
+    query_vector = create_combined_embedding(
+        query_text, query_text, "", "", []
+    ).tolist()
+    
+    results = es.search(index=index, body={
+        "query": {
+            "script_score": {
+                "query": {"match_all": {}},
+                "script": {
+                    "source": "cosineSimilarity(params.query_vector, 'combined_embedding') + 1.0",
+                    "params": {"query_vector": query_vector}
+                }
+            }
+        }
+    })
+    return [(hit['_source']['name'], hit['_score']) for hit in results['hits']['hits
