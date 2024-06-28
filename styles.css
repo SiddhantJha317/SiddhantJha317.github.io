@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'Computer Modern Serif';
+    src: url('https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts/Serif/cmunrm.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    background-color: #000000;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+#scene-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.content {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+h1 {
+    font-size: 4em;
+    font-weight: 700;
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
+
+h2 {
+    font-size: 2em;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    color: #ffffff;
+    opacity: 0.8;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+.about, .projects, .publications, .hobbies {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+nav {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 2;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin-right: 1em;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+.project-box, .publication-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.project-box:hover, .publication-box:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* Styles for projects.html and publications.html */
+.projects-page, .publications-page {
+    font-family: 'Computer Modern Serif', serif;
+}
+
+.projects-page h1, .publications-page h1 {
+    font-family: 'Computer Modern Serif', serif;
+    font-size: 3em;
+    margin-bottom: 30px;
+}
+
+.projects-page .project, .publications-page .publication {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.projects-page h2, .publications-page h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.projects-page ul, .publications-page ul {
+    padding-left: 20px;
+}
+
+.projects-page a, .publications-page a {
+    color: #00aaff;
+    text-decoration: none;
+}
+
+.projects-page a:hover, .publications-page a:hover {
+    text-decoration: underline;
+}
